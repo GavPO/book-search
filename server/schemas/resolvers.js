@@ -2,7 +2,7 @@ const { User } = require('../models');
 
 const resolvers = {
   Query: {
-    me: async (parent, { userId }) => {
+    getSingleUser: async (parent, { userId }) => {
         return User.findOne({ _id: userId });
     }
   },
@@ -24,7 +24,7 @@ const resolvers = {
       return { token, user };
     },
 
-    addUser: async (parent, { name, email, password }) => {
+    createUser: async (parent, { name, email, password }) => {
       const user = await User.create({ name, email, password });
       const token = signToken(user);
 
