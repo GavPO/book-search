@@ -2,6 +2,10 @@ const { User } = require('../models');
 
 const resolvers = {
   Query: {
+    me: async (parent, args) => {
+      return User.find()
+    }
+
     getSingleUser: async (parent, { userId }) => {
         return User.findOne({ _id: userId });
     }
