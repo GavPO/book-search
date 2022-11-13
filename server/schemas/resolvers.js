@@ -30,6 +30,27 @@ const resolvers = {
 
       return { token, user };
   },
-};
+
+  saveBook: async (parent, { userId, book }) => {
+    return User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $addToSet: { savedBooks: book },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  },
+
+  removeBook: async (parent, { userId, book }) => {
+    return User.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { savedBooks: book } },
+      { new: true }
+    );
+  },
+}};
 
 module.exports = resolvers;
